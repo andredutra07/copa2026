@@ -1,0 +1,2270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Previsor Copa 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--pitch:#08130d;--line:#1c3326;--chalk:#f2f0e6;--muted:#7e9586;--muted2:#536a5c;
+    --gold:#e8c15a;--teal:#2fd4b5;--red:#e8615a;--card:#10241a;--card2:#0b1b13;}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;background:var(--pitch);color:var(--chalk);font-family:'Inter',system-ui,sans-serif;-webkit-text-size-adjust:100%;}
+  body{padding-bottom:env(safe-area-inset-bottom);}
+  .wrap{max-width:600px;margin:0 auto;padding:0 14px 96px;}
+  header{padding:20px 2px 8px;}
+  .eyebrow{font:600 12px/1 'Inter';letter-spacing:.22em;color:var(--teal);text-transform:uppercase;}
+  h1{font:700 31px/0.95 'Barlow Condensed';margin:6px 0 4px;text-transform:uppercase;}
+  h1 b{color:var(--gold);}
+  .sub{color:var(--muted);font-size:13px;line-height:1.5;}
+  .pill{display:inline-block;font:600 11px/1 'Inter';color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:5px 10px;margin-top:10px;}
+  .tabs{position:fixed;bottom:0;left:0;right:0;background:rgba(8,19,13,.93);backdrop-filter:blur(12px);border-top:1px solid var(--line);z-index:30;display:flex;padding:8px 6px calc(8px + env(safe-area-inset-bottom));}
+  .tabs button{flex:1;background:none;border:none;color:var(--muted2);font:600 11px/1.4 'Inter';padding:6px 2px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;}
+  .tabs button .ic{font-size:18px;} .tabs button.on{color:var(--gold);}
+  .round{margin:12px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card2);}
+  .rhead{display:flex;align-items:center;gap:10px;padding:15px;cursor:pointer;background:var(--card);}
+  .rhead .rn{font:700 18px/1 'Barlow Condensed';text-transform:uppercase;flex:1;}
+  .rhead .rd{font:600 11px/1 'Inter';color:var(--gold);}
+  .rhead .arr{color:var(--muted2);font-size:13px;transition:transform .2s;}
+  .round.open .rhead .arr{transform:rotate(90deg);}
+  .rbody{display:none;padding:4px 12px 12px;} .round.open .rbody{display:block;}
+  .daylbl{font:700 11px/1 'Inter';letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);margin:14px 4px 4px;}
+  .match{border-top:1px solid var(--line);padding:11px 4px;} .match:first-of-type{border-top:none;}
+  .mrow{display:flex;align-items:center;gap:8px;}
+  .mteam{flex:1;min-width:0;font:500 14px 'Inter';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .mteam.b{text-align:right;} .mteam.win{font-weight:600;color:var(--chalk);} .mteam.lose{color:var(--muted);}
+  .mscore{flex:0 0 auto;font:700 19px/1 'Space Grotesk';color:var(--gold);min-width:54px;text-align:center;}
+  .mscore.real{color:var(--teal);}
+  .mbar{height:5px;border-radius:3px;background:var(--card);overflow:hidden;display:flex;margin:8px 2px 0;}
+  .mbar i{height:100%;} .bh{background:var(--teal);} .bd{background:var(--muted2);} .ba{background:var(--gold);}
+  .mmeta{display:flex;justify-content:space-between;align-items:center;margin-top:6px;}
+  .mfav{font:500 11px 'Inter';color:var(--muted);} .mfav .tag{color:var(--teal);font-weight:600;}
+  .badge{font:600 9px 'Inter';letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;border-radius:5px;background:rgba(47,212,181,.14);color:var(--teal);}
+  .pen{font:500 10px 'Inter';color:var(--muted);}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0;}
+  .card h2{font:600 13px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 14px;}
+  .note{font-size:12.5px;line-height:1.6;color:var(--muted);}
+  .grp h3{font:700 16px 'Barlow Condensed';letter-spacing:.08em;color:var(--gold);margin:18px 0 6px;text-transform:uppercase;}
+  table{width:100%;border-collapse:collapse;}
+  th{font:600 9px 'Inter';letter-spacing:.06em;text-transform:uppercase;color:var(--muted2);text-align:right;padding:4px 4px;}
+  th.l,td.l{text-align:left;}
+  td{font:500 13px 'Inter';padding:7px 4px;border-top:1px solid var(--line);text-align:right;}
+  td .el{font:500 12px 'Space Grotesk';color:var(--muted);}
+  .qual{color:var(--teal);font-weight:600;} .qual3{color:var(--gold);}
+  .crow{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line);} .crow:first-child{border:none;}
+  .crow .rk{font:700 14px 'Space Grotesk';color:var(--muted2);width:22px;}
+  .crow .nm{flex:1;font:500 14px 'Inter';}
+  .crow .ci{font:500 10px 'Space Grotesk';color:var(--muted2);}
+  .crow .pct{font:700 15px 'Space Grotesk';color:var(--gold);width:54px;text-align:right;}
+  .barmini{flex:0 0 60px;height:7px;border-radius:4px;background:var(--card2);overflow:hidden;} .barmini i{display:block;height:100%;background:var(--teal);}
+  .stat{display:flex;justify-content:space-between;padding:11px 0;border-top:1px solid var(--line);font-size:14px;} .stat:first-of-type{border:none;} .stat b{font:700 15px 'Space Grotesk';color:var(--teal);}
+  .chip{display:inline-flex;gap:6px;font:600 12px 'Inter';background:var(--card2);border:1px solid var(--line);border-radius:20px;padding:6px 11px;margin:4px 4px 0 0;}
+  .chip b{color:var(--teal);font-family:'Space Grotesk';}
+  .hide{display:none!important;}
+  .foot{color:var(--muted2);font-size:11px;line-height:1.6;text-align:center;margin-top:8px;}
+  .refresh{background:none;border:1px solid var(--line);color:var(--muted);border-radius:9px;padding:7px 12px;font:600 12px 'Inter';cursor:pointer;}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Dixon-Coles + Mercado · Monte Carlo</div>
+    <h1>Previsor <b>Copa 2026</b></h1>
+    <div class="sub">Atualizado automaticamente a cada rodada. Cada jogo traz probabilidade e o placar mais provável com a chance dele.</div>
+    <div style="display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap">
+      <span class="pill" id="stamp">carregando…</span>
+      <button class="refresh" id="refreshBtn">↻ atualizar</button> <a class="refresh" style="text-decoration:none" href="editar.html">✎ editar</a>
+    </div>
+  </header>
+  <section id="v-cal"></section>
+  <section id="v-grupos" class="hide"><div class="card"><h2>Classificação projetada</h2><div id="groupsBox"></div>
+    <p class="note" style="margin-top:14px"><span class="qual">Verde</span>=1º/2º · <span class="qual3">Dourado</span>=3º (8 melhores avançam). Pontos esperados pelo modelo.</p></div></section>
+  <section id="v-tit" class="hide">
+    <div class="card"><h2>Probabilidade de título</h2><div id="champBox"></div>
+      <p class="note" style="margin-top:12px">Modelo (Monte Carlo, IC 95%) fundido com o mercado = ensemble (barra).</p></div>
+    <div class="card"><h2>Chance de chegar às oitavas</h2><div id="advBox"></div></div>
+  </section>
+  <section id="v-prec" class="hide">
+    <div class="card"><h2>Precisão (fora da amostra)</h2>
+      <div class="stat"><span>Jogos avaliados</span><b id="mN">—</b></div>
+      <div class="stat"><span>log-loss (walk-forward)</span><b id="mLL">—</b></div>
+      <div class="stat"><span>Brier</span><b id="mBr">—</b></div>
+      <div class="stat"><span>Parâmetros</span><b id="mFit">—</b></div>
+      <p class="note" style="margin-top:12px">Congelados no padrão até 24 jogos (anti-overfit); depois recalibram via MLE com shrinkage.</p></div>
+    <div class="card"><h2>Ajustes ativos (lesão/forma)</h2><div id="adjBox"><p class="note">Nenhum ajuste ativo.</p></div>
+      <p class="note" style="margin-top:12px">Ajustes manuais entram no arquivo <b>data/adjustments.json</b> do repositório (veja o README). A automação os preserva.</p></div>
+  </section>
+</div>
+<nav class="tabs">
+  <button data-view="cal" class="on"><span class="ic">📅</span>Calendário</button>
+  <button data-view="grupos"><span class="ic">▦</span>Grupos</button>
+  <button data-view="tit"><span class="ic">🏆</span>Título</button>
+  <button data-view="prec"><span class="ic">◷</span>Precisão</button>
+</nav>
+<script>
+const FALLBACK = {
+ "generated_at": "2026-06-15T22:35:40.641317+00:00",
+ "sims": 8000,
+ "params": {
+  "mu": 0.1,
+  "home": 0.25,
+  "rho": -0.08,
+  "fitted": false,
+  "min_fit": 24
+ },
+ "calibration": {
+  "n": 13,
+  "logloss": 1.045,
+  "brier": 0.642
+ },
+ "adjustments": {},
+ "matches": [
+  {
+   "round": 1,
+   "date": "11/06",
+   "home": "México",
+   "away": "África do Sul",
+   "pH": 0.6101,
+   "pD": 0.2267,
+   "pA": 0.1632,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1077,
+   "played": true,
+   "real": [
+    2,
+    0
+   ]
+  },
+  {
+   "round": 1,
+   "date": "11/06",
+   "home": "Coreia do Sul",
+   "away": "Tchéquia",
+   "pH": 0.3066,
+   "pD": 0.3103,
+   "pA": 0.3831,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1439,
+   "played": true,
+   "real": [
+    2,
+    1
+   ]
+  },
+  {
+   "round": 1,
+   "date": "12/06",
+   "home": "Canadá",
+   "away": "Bósnia",
+   "pH": 0.5274,
+   "pD": 0.2641,
+   "pA": 0.2085,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1259,
+   "played": true,
+   "real": [
+    1,
+    1
+   ]
+  },
+  {
+   "round": 1,
+   "date": "12/06",
+   "home": "Estados Unidos",
+   "away": "Paraguai",
+   "pH": 0.456,
+   "pD": 0.2807,
+   "pA": 0.2633,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1339,
+   "played": true,
+   "real": [
+    4,
+    1
+   ]
+  },
+  {
+   "round": 1,
+   "date": "13/06",
+   "home": "Catar",
+   "away": "Suíça",
+   "pH": 0.2183,
+   "pD": 0.2911,
+   "pA": 0.4905,
+   "score": [
+    0,
+    1
+   ],
+   "score_p": 0.1351,
+   "played": true,
+   "real": [
+    1,
+    1
+   ]
+  },
+  {
+   "round": 1,
+   "date": "13/06",
+   "home": "Brasil",
+   "away": "Marrocos",
+   "pH": 0.4693,
+   "pD": 0.2964,
+   "pA": 0.2343,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1375,
+   "played": true,
+   "real": [
+    1,
+    1
+   ]
+  },
+  {
+   "round": 1,
+   "date": "13/06",
+   "home": "Haiti",
+   "away": "Escócia",
+   "pH": 0.2062,
+   "pD": 0.2864,
+   "pA": 0.5074,
+   "score": [
+    0,
+    1
+   ],
+   "score_p": 0.137,
+   "played": true,
+   "real": [
+    0,
+    1
+   ]
+  },
+  {
+   "round": 1,
+   "date": "13/06",
+   "home": "Austrália",
+   "away": "Turquia",
+   "pH": 0.2838,
+   "pD": 0.3076,
+   "pA": 0.4086,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1426,
+   "played": true,
+   "real": [
+    2,
+    0
+   ]
+  },
+  {
+   "round": 1,
+   "date": "14/06",
+   "home": "Alemanha",
+   "away": "Curaçao",
+   "pH": 0.6104,
+   "pD": 0.2493,
+   "pA": 0.1403,
+   "score": [
+    1,
+    0
+   ],
+   "score_p": 0.1428,
+   "played": true,
+   "real": [
+    7,
+    1
+   ]
+  },
+  {
+   "round": 1,
+   "date": "14/06",
+   "home": "Holanda",
+   "away": "Japão",
+   "pH": 0.4131,
+   "pD": 0.307,
+   "pA": 0.2799,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1424,
+   "played": true,
+   "real": [
+    2,
+    2
+   ]
+  },
+  {
+   "round": 1,
+   "date": "14/06",
+   "home": "Costa do Marfim",
+   "away": "Equador",
+   "pH": 0.263,
+   "pD": 0.3038,
+   "pA": 0.4332,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1409,
+   "played": true,
+   "real": [
+    1,
+    0
+   ]
+  },
+  {
+   "round": 1,
+   "date": "14/06",
+   "home": "Suécia",
+   "away": "Tunísia",
+   "pH": 0.4417,
+   "pD": 0.3023,
+   "pA": 0.256,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1402,
+   "played": true,
+   "real": [
+    5,
+    1
+   ]
+  },
+  {
+   "round": 1,
+   "date": "15/06",
+   "home": "Espanha",
+   "away": "Cabo Verde",
+   "pH": 0.7002,
+   "pD": 0.2064,
+   "pA": 0.0935,
+   "score": [
+    2,
+    0
+   ],
+   "score_p": 0.1478,
+   "played": true,
+   "real": [
+    0,
+    0
+   ]
+  },
+  {
+   "round": 1,
+   "date": "15/06",
+   "home": "Bélgica",
+   "away": "Egito",
+   "pH": 0.446,
+   "pD": 0.3014,
+   "pA": 0.2526,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1398,
+   "played": false
+  },
+  {
+   "round": 1,
+   "date": "15/06",
+   "home": "Arábia Saudita",
+   "away": "Uruguai",
+   "pH": 0.2501,
+   "pD": 0.3008,
+   "pA": 0.449,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1395,
+   "played": false
+  },
+  {
+   "round": 1,
+   "date": "15/06",
+   "home": "Irã",
+   "away": "Nova Zelândia",
+   "pH": 0.5287,
+   "pD": 0.2799,
+   "pA": 0.1914,
+   "score": [
+    1,
+    0
+   ],
+   "score_p": 0.1389,
+   "played": false
+  },
+  {
+   "round": 1,
+   "date": "16/06",
+   "home": "França",
+   "away": "Senegal",
+   "pH": 0.4631,
+   "pD": 0.2978,
+   "pA": 0.239,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1381,
+   "played": false
+  },
+  {
+   "round": 1,
+   "date": "16/06",
+   "home": "Iraque",
+   "away": "Noruega",
+   "pH": 0.1916,
+   "pD": 0.28,
+   "pA": 0.5285,
+   "score": [
+    0,
+    1
+   ],
+   "score_p": 0.1389,
+   "played": false
+  },
+  {
+   "round": 1,
+   "date": "16/06",
+   "home": "Argentina",
+   "away": "Argélia",
+   "pH": 0.515,
+   "pD": 0.2842,
+   "pA": 0.2009,
+   "score": [
+    1,
+    0
+   ],
+   "score_p": 0.1377,
+   "played": false
+  },
+  {
+   "round": 1,
+   "date": "16/06",
+   "home": "Áustria",
+   "away": "Jordânia",
+   "pH": 0.5087,
+   "pD": 0.286,
+   "pA": 0.2053,
+   "score": [
+    1,
+    0
+   ],
+   "score_p": 0.1371,
+   "played": false
+  },
+  {
+   "round": 1,
+   "date": "17/06",
+   "home": "Portugal",
+   "away": "RD Congo",
+   "pH": 0.5325,
+   "pD": 0.2787,
+   "pA": 0.1888,
+   "score": [
+    1,
+    0
+   ],
+   "score_p": 0.1393,
+   "played": false
+  },
+  {
+   "round": 1,
+   "date": "17/06",
+   "home": "Inglaterra",
+   "away": "Croácia",
+   "pH": 0.4737,
+   "pD": 0.2954,
+   "pA": 0.2309,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.137,
+   "played": false
+  },
+  {
+   "round": 1,
+   "date": "17/06",
+   "home": "Gana",
+   "away": "Panamá",
+   "pH": 0.329,
+   "pD": 0.3117,
+   "pA": 0.3594,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1445,
+   "played": false
+  },
+  {
+   "round": 1,
+   "date": "17/06",
+   "home": "Uzbequistão",
+   "away": "Colômbia",
+   "pH": 0.203,
+   "pD": 0.2851,
+   "pA": 0.5119,
+   "score": [
+    0,
+    1
+   ],
+   "score_p": 0.1374,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "18/06",
+   "home": "Tchéquia",
+   "away": "África do Sul",
+   "pH": 0.4608,
+   "pD": 0.2984,
+   "pA": 0.2408,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1384,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "18/06",
+   "home": "Suíça",
+   "away": "Bósnia",
+   "pH": 0.466,
+   "pD": 0.2972,
+   "pA": 0.2368,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1378,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "18/06",
+   "home": "Canadá",
+   "away": "Catar",
+   "pH": 0.5535,
+   "pD": 0.2562,
+   "pA": 0.1903,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1222,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "18/06",
+   "home": "México",
+   "away": "Coreia do Sul",
+   "pH": 0.5225,
+   "pD": 0.2538,
+   "pA": 0.2237,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1206,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "19/06",
+   "home": "Escócia",
+   "away": "Marrocos",
+   "pH": 0.3292,
+   "pD": 0.3117,
+   "pA": 0.3591,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1445,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "19/06",
+   "home": "Estados Unidos",
+   "away": "Austrália",
+   "pH": 0.4179,
+   "pD": 0.2864,
+   "pA": 0.2957,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1366,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "19/06",
+   "home": "Brasil",
+   "away": "Haiti",
+   "pH": 0.6524,
+   "pD": 0.2303,
+   "pA": 0.1172,
+   "score": [
+    1,
+    0
+   ],
+   "score_p": 0.1423,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "19/06",
+   "home": "Turquia",
+   "away": "Paraguai",
+   "pH": 0.4443,
+   "pD": 0.3018,
+   "pA": 0.2539,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1399,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "20/06",
+   "home": "Holanda",
+   "away": "Suécia",
+   "pH": 0.4308,
+   "pD": 0.3042,
+   "pA": 0.265,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1411,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "20/06",
+   "home": "Alemanha",
+   "away": "Costa do Marfim",
+   "pH": 0.412,
+   "pD": 0.3071,
+   "pA": 0.2809,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1424,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "20/06",
+   "home": "Equador",
+   "away": "Curaçao",
+   "pH": 0.6317,
+   "pD": 0.2399,
+   "pA": 0.1284,
+   "score": [
+    1,
+    0
+   ],
+   "score_p": 0.1428,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "20/06",
+   "home": "Tunísia",
+   "away": "Japão",
+   "pH": 0.2417,
+   "pD": 0.2986,
+   "pA": 0.4597,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1385,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "21/06",
+   "home": "Espanha",
+   "away": "Arábia Saudita",
+   "pH": 0.6707,
+   "pD": 0.2215,
+   "pA": 0.1079,
+   "score": [
+    2,
+    0
+   ],
+   "score_p": 0.1428,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "21/06",
+   "home": "Bélgica",
+   "away": "Irã",
+   "pH": 0.3885,
+   "pD": 0.3098,
+   "pA": 0.3017,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1437,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "21/06",
+   "home": "Uruguai",
+   "away": "Cabo Verde",
+   "pH": 0.4808,
+   "pD": 0.2937,
+   "pA": 0.2256,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1362,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "21/06",
+   "home": "Nova Zelândia",
+   "away": "Egito",
+   "pH": 0.2342,
+   "pD": 0.2964,
+   "pA": 0.4694,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1375,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "22/06",
+   "home": "Argentina",
+   "away": "Áustria",
+   "pH": 0.4916,
+   "pD": 0.2908,
+   "pA": 0.2176,
+   "score": [
+    1,
+    0
+   ],
+   "score_p": 0.1353,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "22/06",
+   "home": "França",
+   "away": "Iraque",
+   "pH": 0.6632,
+   "pD": 0.2251,
+   "pA": 0.1116,
+   "score": [
+    1,
+    0
+   ],
+   "score_p": 0.1419,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "22/06",
+   "home": "Noruega",
+   "away": "Senegal",
+   "pH": 0.3323,
+   "pD": 0.3118,
+   "pA": 0.3559,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1446,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "22/06",
+   "home": "Jordânia",
+   "away": "Argélia",
+   "pH": 0.2222,
+   "pD": 0.2925,
+   "pA": 0.4854,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1356,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "23/06",
+   "home": "Portugal",
+   "away": "Uzbequistão",
+   "pH": 0.5758,
+   "pD": 0.2633,
+   "pA": 0.1609,
+   "score": [
+    1,
+    0
+   ],
+   "score_p": 0.1419,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "23/06",
+   "home": "Inglaterra",
+   "away": "Gana",
+   "pH": 0.5457,
+   "pD": 0.2742,
+   "pA": 0.18,
+   "score": [
+    1,
+    0
+   ],
+   "score_p": 0.1402,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "23/06",
+   "home": "Panamá",
+   "away": "Croácia",
+   "pH": 0.2951,
+   "pD": 0.3091,
+   "pA": 0.3958,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1433,
+   "played": false
+  },
+  {
+   "round": 2,
+   "date": "23/06",
+   "home": "Colômbia",
+   "away": "RD Congo",
+   "pH": 0.4687,
+   "pD": 0.2966,
+   "pA": 0.2348,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1375,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "24/06",
+   "home": "Suíça",
+   "away": "Canadá",
+   "pH": 0.4701,
+   "pD": 0.2781,
+   "pA": 0.2519,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1326,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "24/06",
+   "home": "Bósnia",
+   "away": "Catar",
+   "pH": 0.3668,
+   "pD": 0.3114,
+   "pA": 0.3218,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1444,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "24/06",
+   "home": "Escócia",
+   "away": "Brasil",
+   "pH": 0.2219,
+   "pD": 0.2924,
+   "pA": 0.4856,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1356,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "24/06",
+   "home": "Marrocos",
+   "away": "Haiti",
+   "pH": 0.5238,
+   "pD": 0.2815,
+   "pA": 0.1948,
+   "score": [
+    1,
+    0
+   ],
+   "score_p": 0.1385,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "24/06",
+   "home": "Tchéquia",
+   "away": "México",
+   "pH": 0.4577,
+   "pD": 0.2804,
+   "pA": 0.2618,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1337,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "24/06",
+   "home": "África do Sul",
+   "away": "Coreia do Sul",
+   "pH": 0.2744,
+   "pD": 0.306,
+   "pA": 0.4196,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1419,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "25/06",
+   "home": "Equador",
+   "away": "Alemanha",
+   "pH": 0.3641,
+   "pD": 0.3115,
+   "pA": 0.3244,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1445,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "25/06",
+   "home": "Curaçao",
+   "away": "Costa do Marfim",
+   "pH": 0.1847,
+   "pD": 0.2766,
+   "pA": 0.5387,
+   "score": [
+    0,
+    1
+   ],
+   "score_p": 0.1397,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "25/06",
+   "home": "Japão",
+   "away": "Suécia",
+   "pH": 0.3608,
+   "pD": 0.3116,
+   "pA": 0.3276,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1445,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "25/06",
+   "home": "Tunísia",
+   "away": "Holanda",
+   "pH": 0.1885,
+   "pD": 0.2785,
+   "pA": 0.5329,
+   "score": [
+    0,
+    1
+   ],
+   "score_p": 0.1393,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "25/06",
+   "home": "Turquia",
+   "away": "Estados Unidos",
+   "pH": 0.5184,
+   "pD": 0.2666,
+   "pA": 0.215,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1271,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "25/06",
+   "home": "Paraguai",
+   "away": "Austrália",
+   "pH": 0.3113,
+   "pD": 0.3107,
+   "pA": 0.378,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1441,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "26/06",
+   "home": "Noruega",
+   "away": "França",
+   "pH": 0.2292,
+   "pD": 0.2948,
+   "pA": 0.476,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1367,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "26/06",
+   "home": "Senegal",
+   "away": "Iraque",
+   "pH": 0.5414,
+   "pD": 0.2757,
+   "pA": 0.1829,
+   "score": [
+    1,
+    0
+   ],
+   "score_p": 0.1399,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "26/06",
+   "home": "Cabo Verde",
+   "away": "Arábia Saudita",
+   "pH": 0.3154,
+   "pD": 0.311,
+   "pA": 0.3737,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1442,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "26/06",
+   "home": "Uruguai",
+   "away": "Espanha",
+   "pH": 0.1686,
+   "pD": 0.2679,
+   "pA": 0.5635,
+   "score": [
+    0,
+    1
+   ],
+   "score_p": 0.1413,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "26/06",
+   "home": "Egito",
+   "away": "Irã",
+   "pH": 0.2917,
+   "pD": 0.3087,
+   "pA": 0.3996,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1431,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "26/06",
+   "home": "Nova Zelândia",
+   "away": "Bélgica",
+   "pH": 0.1606,
+   "pD": 0.2631,
+   "pA": 0.5764,
+   "score": [
+    0,
+    1
+   ],
+   "score_p": 0.142,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "27/06",
+   "home": "Panamá",
+   "away": "Inglaterra",
+   "pH": 0.1912,
+   "pD": 0.2798,
+   "pA": 0.529,
+   "score": [
+    0,
+    1
+   ],
+   "score_p": 0.139,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "27/06",
+   "home": "Croácia",
+   "away": "Gana",
+   "pH": 0.4119,
+   "pD": 0.3071,
+   "pA": 0.281,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1424,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "27/06",
+   "home": "Colômbia",
+   "away": "Portugal",
+   "pH": 0.2878,
+   "pD": 0.3082,
+   "pA": 0.404,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1429,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "27/06",
+   "home": "RD Congo",
+   "away": "Uzbequistão",
+   "pH": 0.3843,
+   "pD": 0.3102,
+   "pA": 0.3055,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1439,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "27/06",
+   "home": "Argélia",
+   "away": "Áustria",
+   "pH": 0.323,
+   "pD": 0.3114,
+   "pA": 0.3655,
+   "score": [
+    1,
+    1
+   ],
+   "score_p": 0.1444,
+   "played": false
+  },
+  {
+   "round": 3,
+   "date": "27/06",
+   "home": "Jordânia",
+   "away": "Argentina",
+   "pH": 0.1136,
+   "pD": 0.227,
+   "pA": 0.6594,
+   "score": [
+    0,
+    1
+   ],
+   "score_p": 0.1421,
+   "played": false
+  }
+ ],
+ "champions": [
+  {
+   "team": "Espanha",
+   "model": 0.1321,
+   "lo": 0.1249,
+   "hi": 0.1397,
+   "market": 0.1582,
+   "ensemble": 0.1439
+  },
+  {
+   "team": "Argentina",
+   "model": 0.1095,
+   "lo": 0.1028,
+   "hi": 0.1165,
+   "market": 0.0791,
+   "ensemble": 0.0958
+  },
+  {
+   "team": "França",
+   "model": 0.0924,
+   "lo": 0.0862,
+   "hi": 0.0989,
+   "market": 0.1451,
+   "ensemble": 0.1161
+  },
+  {
+   "team": "Inglaterra",
+   "model": 0.0683,
+   "lo": 0.0629,
+   "hi": 0.074,
+   "market": 0.116,
+   "ensemble": 0.0898
+  },
+  {
+   "team": "Brasil",
+   "model": 0.0651,
+   "lo": 0.0599,
+   "hi": 0.0707,
+   "market": 0.0916,
+   "ensemble": 0.077
+  },
+  {
+   "team": "Portugal",
+   "model": 0.062,
+   "lo": 0.0569,
+   "hi": 0.0675,
+   "market": 0.0967,
+   "ensemble": 0.0776
+  },
+  {
+   "team": "Alemanha",
+   "model": 0.0456,
+   "lo": 0.0413,
+   "hi": 0.0504,
+   "market": 0.0622,
+   "ensemble": 0.0531
+  },
+  {
+   "team": "Holanda",
+   "model": 0.0355,
+   "lo": 0.0317,
+   "hi": 0.0398,
+   "market": 0.0512,
+   "ensemble": 0.0426
+  },
+  {
+   "team": "Equador",
+   "model": 0.0352,
+   "lo": 0.0314,
+   "hi": 0.0395,
+   "market": null,
+   "ensemble": 0.0352
+  },
+  {
+   "team": "Colômbia",
+   "model": 0.031,
+   "lo": 0.0274,
+   "hi": 0.035,
+   "market": 0.0242,
+   "ensemble": 0.0279
+  },
+  {
+   "team": "Bélgica",
+   "model": 0.0271,
+   "lo": 0.0238,
+   "hi": 0.0309,
+   "market": 0.0378,
+   "ensemble": 0.0319
+  },
+  {
+   "team": "Senegal",
+   "model": 0.0231,
+   "lo": 0.0201,
+   "hi": 0.0267,
+   "market": null,
+   "ensemble": 0.0231
+  },
+  {
+   "team": "Noruega",
+   "model": 0.0173,
+   "lo": 0.0146,
+   "hi": 0.0203,
+   "market": 0.0256,
+   "ensemble": 0.021
+  },
+  {
+   "team": "Áustria",
+   "model": 0.0159,
+   "lo": 0.0134,
+   "hi": 0.0189,
+   "market": null,
+   "ensemble": 0.0159
+  },
+  {
+   "team": "Japão",
+   "model": 0.0152,
+   "lo": 0.0128,
+   "hi": 0.0182,
+   "market": 0.0212,
+   "ensemble": 0.0179
+  },
+  {
+   "team": "Costa do Marfim",
+   "model": 0.0151,
+   "lo": 0.0127,
+   "hi": 0.018,
+   "market": null,
+   "ensemble": 0.0151
+  }
+ ],
+ "advance": [
+  {
+   "team": "Alemanha",
+   "p": 0.9908
+  },
+  {
+   "team": "Suécia",
+   "p": 0.9604
+  },
+  {
+   "team": "Estados Unidos",
+   "p": 0.9585
+  },
+  {
+   "team": "México",
+   "p": 0.9555
+  },
+  {
+   "team": "Costa do Marfim",
+   "p": 0.9496
+  },
+  {
+   "team": "Austrália",
+   "p": 0.9483
+  },
+  {
+   "team": "Coreia do Sul",
+   "p": 0.911
+  },
+  {
+   "team": "Espanha",
+   "p": 0.9035
+  },
+  {
+   "team": "Argentina",
+   "p": 0.9028
+  },
+  {
+   "team": "França",
+   "p": 0.892
+  },
+  {
+   "team": "Brasil",
+   "p": 0.8848
+  },
+  {
+   "team": "Portugal",
+   "p": 0.8691
+  },
+  {
+   "team": "Inglaterra",
+   "p": 0.8688
+  },
+  {
+   "team": "Escócia",
+   "p": 0.8662
+  },
+  {
+   "team": "Bélgica",
+   "p": 0.8371
+  },
+  {
+   "team": "Holanda",
+   "p": 0.8045
+  }
+ ],
+ "groups": {
+  "A": [
+   {
+    "team": "México",
+    "pts": 6.0,
+    "elo": 1868
+   },
+   {
+    "team": "Coreia do Sul",
+    "pts": 5.7,
+    "elo": 1745
+   },
+   {
+    "team": "Tchéquia",
+    "pts": 2.9,
+    "elo": 1808
+   },
+   {
+    "team": "África do Sul",
+    "pts": 2.2,
+    "elo": 1625
+   }
+  ],
+  "B": [
+   {
+    "team": "Suíça",
+    "pts": 4.1,
+    "elo": 1891
+   },
+   {
+    "team": "Canadá",
+    "pts": 3.9,
+    "elo": 1731
+   },
+   {
+    "team": "Bósnia",
+    "pts": 3.4,
+    "elo": 1595
+   },
+   {
+    "team": "Catar",
+    "pts": 3.3,
+    "elo": 1558
+   }
+  ],
+  "C": [
+   {
+    "team": "Escócia",
+    "pts": 5.3,
+    "elo": 1758
+   },
+   {
+    "team": "Brasil",
+    "pts": 4.9,
+    "elo": 1991
+   },
+   {
+    "team": "Marrocos",
+    "pts": 4.2,
+    "elo": 1860
+   },
+   {
+    "team": "Haiti",
+    "pts": 1.4,
+    "elo": 1505
+   }
+  ],
+  "D": [
+   {
+    "team": "Austrália",
+    "pts": 5.8,
+    "elo": 1777
+   },
+   {
+    "team": "Estados Unidos",
+    "pts": 5.4,
+    "elo": 1798
+   },
+   {
+    "team": "Turquia",
+    "pts": 3.2,
+    "elo": 1880
+   },
+   {
+    "team": "Paraguai",
+    "pts": 2.3,
+    "elo": 1722
+   }
+  ],
+  "E": [
+   {
+    "team": "Costa do Marfim",
+    "pts": 6.0,
+    "elo": 1792
+   },
+   {
+    "team": "Alemanha",
+    "pts": 5.8,
+    "elo": 1910
+   },
+   {
+    "team": "Equador",
+    "pts": 3.5,
+    "elo": 1933
+   },
+   {
+    "team": "Curaçao",
+    "pts": 1.5,
+    "elo": 1492
+   }
+  ],
+  "F": [
+   {
+    "team": "Suécia",
+    "pts": 5.4,
+    "elo": 1782
+   },
+   {
+    "team": "Holanda",
+    "pts": 4.5,
+    "elo": 1959
+   },
+   {
+    "team": "Japão",
+    "pts": 4.1,
+    "elo": 1879
+   },
+   {
+    "team": "Tunísia",
+    "pts": 1.9,
+    "elo": 1628
+   }
+  ],
+  "G": [
+   {
+    "team": "Bélgica",
+    "pts": 5.1,
+    "elo": 1893
+   },
+   {
+    "team": "Irã",
+    "pts": 4.6,
+    "elo": 1785
+   },
+   {
+    "team": "Egito",
+    "pts": 3.9,
+    "elo": 1696
+   },
+   {
+    "team": "Nova Zelândia",
+    "pts": 2.6,
+    "elo": 1500
+   }
+  ],
+  "H": [
+   {
+    "team": "Espanha",
+    "pts": 5.2,
+    "elo": 2157
+   },
+   {
+    "team": "Uruguai",
+    "pts": 4.2,
+    "elo": 1890
+   },
+   {
+    "team": "Cabo Verde",
+    "pts": 3.2,
+    "elo": 1572
+   },
+   {
+    "team": "Arábia Saudita",
+    "pts": 3.0,
+    "elo": 1620
+   }
+  ],
+  "I": [
+   {
+    "team": "França",
+    "pts": 5.6,
+    "elo": 2063
+   },
+   {
+    "team": "Senegal",
+    "pts": 4.3,
+    "elo": 1869
+   },
+   {
+    "team": "Noruega",
+    "pts": 4.2,
+    "elo": 1922
+   },
+   {
+    "team": "Iraque",
+    "pts": 2.2,
+    "elo": 1565
+   }
+  ],
+  "J": [
+   {
+    "team": "Argentina",
+    "pts": 5.8,
+    "elo": 2115
+   },
+   {
+    "team": "Áustria",
+    "pts": 4.2,
+    "elo": 1820
+   },
+   {
+    "team": "Argélia",
+    "pts": 3.9,
+    "elo": 1785
+   },
+   {
+    "team": "Jordânia",
+    "pts": 2.4,
+    "elo": 1565
+   }
+  ],
+  "K": [
+   {
+    "team": "Portugal",
+    "pts": 5.4,
+    "elo": 1989
+   },
+   {
+    "team": "Colômbia",
+    "pts": 4.7,
+    "elo": 1982
+   },
+   {
+    "team": "RD Congo",
+    "pts": 3.3,
+    "elo": 1690
+   },
+   {
+    "team": "Uzbequistão",
+    "pts": 2.9,
+    "elo": 1625
+   }
+  ],
+  "L": [
+   {
+    "team": "Inglaterra",
+    "pts": 5.5,
+    "elo": 2024
+   },
+   {
+    "team": "Croácia",
+    "pts": 4.0,
+    "elo": 1933
+   },
+   {
+    "team": "Panamá",
+    "pts": 3.4,
+    "elo": 1730
+   },
+   {
+    "team": "Gana",
+    "pts": 3.3,
+    "elo": 1705
+   }
+  ]
+ },
+ "knockout": [
+  {
+   "name": "Round of 32",
+   "ties": [
+    {
+     "A": "Coreia do Sul",
+     "B": "Canadá",
+     "winner": "Coreia do Sul",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.512,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Escócia",
+     "B": "Holanda",
+     "winner": "Holanda",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.639,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Costa do Marfim",
+     "B": "Bósnia",
+     "winner": "Costa do Marfim",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.668,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Suécia",
+     "B": "Brasil",
+     "winner": "Brasil",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.668,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Alemanha",
+     "B": "Senegal",
+     "winner": "Alemanha",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.528,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "França",
+     "B": "Marrocos",
+     "winner": "França",
+     "score": [
+      1,
+      0
+     ],
+     "pW": 0.726,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "México",
+     "B": "Equador",
+     "winner": "Equador",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.64,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Inglaterra",
+     "B": "Noruega",
+     "winner": "Inglaterra",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.643,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Bélgica",
+     "B": "Argélia",
+     "winner": "Bélgica",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.563,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Austrália",
+     "B": "Japão",
+     "winner": "Japão",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.529,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Suíça",
+     "B": "Irã",
+     "winner": "Suíça",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.501,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Argentina",
+     "B": "Uruguai",
+     "winner": "Argentina",
+     "score": [
+      1,
+      0
+     ],
+     "pW": 0.719,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Portugal",
+     "B": "Egito",
+     "winner": "Portugal",
+     "score": [
+      1,
+      0
+     ],
+     "pW": 0.734,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Espanha",
+     "B": "Panamá",
+     "winner": "Espanha",
+     "score": [
+      1,
+      0
+     ],
+     "pW": 0.804,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Estados Unidos",
+     "B": "Áustria",
+     "winner": "Áustria",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.556,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Colômbia",
+     "B": "Croácia",
+     "winner": "Colômbia",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.563,
+     "pen": false,
+     "label": null
+    }
+   ]
+  },
+  {
+   "name": "Oitavas de final",
+   "ties": [
+    {
+     "A": "Coreia do Sul",
+     "B": "Holanda",
+     "winner": "Holanda",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.65,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Costa do Marfim",
+     "B": "Brasil",
+     "winner": "Brasil",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.66,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Alemanha",
+     "B": "França",
+     "winner": "França",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.634,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Equador",
+     "B": "Inglaterra",
+     "winner": "Inglaterra",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.572,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Bélgica",
+     "B": "Japão",
+     "winner": "Bélgica",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.542,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Suíça",
+     "B": "Argentina",
+     "winner": "Argentina",
+     "score": [
+      0,
+      1
+     ],
+     "pW": 0.719,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Portugal",
+     "B": "Espanha",
+     "winner": "Espanha",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.623,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Áustria",
+     "B": "Colômbia",
+     "winner": "Colômbia",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.557,
+     "pen": false,
+     "label": null
+    }
+   ]
+  },
+  {
+   "name": "Quartas de final",
+   "ties": [
+    {
+     "A": "Holanda",
+     "B": "Brasil",
+     "winner": "Brasil",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.552,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "França",
+     "B": "Inglaterra",
+     "winner": "França",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.535,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Bélgica",
+     "B": "Argentina",
+     "winner": "Argentina",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.665,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Espanha",
+     "B": "Colômbia",
+     "winner": "Espanha",
+     "score": [
+      1,
+      0
+     ],
+     "pW": 0.699,
+     "pen": false,
+     "label": null
+    }
+   ]
+  },
+  {
+   "name": "Semifinais",
+   "ties": [
+    {
+     "A": "Brasil",
+     "B": "França",
+     "winner": "França",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.568,
+     "pen": false,
+     "label": null
+    },
+    {
+     "A": "Argentina",
+     "B": "Espanha",
+     "winner": "Espanha",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.564,
+     "pen": false,
+     "label": null
+    }
+   ]
+  },
+  {
+   "name": "Final & 3º lugar",
+   "ties": [
+    {
+     "A": "Brasil",
+     "B": "Argentina",
+     "winner": "Argentina",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.562,
+     "pen": false,
+     "label": "3º lugar"
+    },
+    {
+     "A": "França",
+     "B": "Espanha",
+     "winner": "Espanha",
+     "score": [
+      1,
+      1
+     ],
+     "pW": 0.559,
+     "pen": false,
+     "label": "Final"
+    }
+   ]
+  }
+ ],
+ "champion_proj": "Espanha",
+ "ratings": {
+  "México": 1868,
+  "África do Sul": 1625,
+  "Coreia do Sul": 1745,
+  "Tchéquia": 1808,
+  "Canadá": 1731,
+  "Bósnia": 1595,
+  "Catar": 1558,
+  "Suíça": 1891,
+  "Brasil": 1991,
+  "Marrocos": 1860,
+  "Haiti": 1505,
+  "Escócia": 1758,
+  "Estados Unidos": 1798,
+  "Paraguai": 1722,
+  "Austrália": 1777,
+  "Turquia": 1880,
+  "Alemanha": 1910,
+  "Curaçao": 1492,
+  "Costa do Marfim": 1792,
+  "Equador": 1933,
+  "Holanda": 1959,
+  "Japão": 1879,
+  "Suécia": 1782,
+  "Tunísia": 1628,
+  "Bélgica": 1893,
+  "Egito": 1696,
+  "Irã": 1785,
+  "Nova Zelândia": 1500,
+  "Espanha": 2157,
+  "Cabo Verde": 1572,
+  "Arábia Saudita": 1620,
+  "Uruguai": 1890,
+  "França": 2063,
+  "Senegal": 1869,
+  "Iraque": 1565,
+  "Noruega": 1922,
+  "Argentina": 2115,
+  "Argélia": 1785,
+  "Áustria": 1820,
+  "Jordânia": 1565,
+  "Portugal": 1989,
+  "RD Congo": 1690,
+  "Uzbequistão": 1625,
+  "Colômbia": 1982,
+  "Inglaterra": 2024,
+  "Croácia": 1933,
+  "Gana": 1705,
+  "Panamá": 1730
+ }
+};
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+let D=null, open={1:true};
+
+async function loadData(){
+  try{
+    const r=await fetch('predictions.json?t='+Date.now(),{cache:'no-store'});
+    if(!r.ok) throw 0; D=await r.json();
+  }catch(e){ D=FALLBACK; }
+  if(!D){ $('#stamp').textContent='sem dados — publique via GitHub Pages'; return; }
+  render();
+}
+function fmtStamp(iso){ try{const d=new Date(iso);return 'atualizado '+d.toLocaleString('pt-BR');}catch(e){return iso;} }
+
+function matchHTML(m){
+  let scoreTxt,cls='',badge='',winA=false,winB=false;
+  if(m.played){ scoreTxt=m.real[0]+' – '+m.real[1]; cls='real'; badge='<span class="badge">real</span>'; winA=m.real[0]>m.real[1]; winB=m.real[1]>m.real[0]; }
+  else { scoreTxt=m.score[0]+' – '+m.score[1]; winA=m.pH>m.pA&&m.score[0]>m.score[1]; winB=m.pA>m.pH&&m.score[1]>m.score[0]; }
+  const fav=m.pH>=m.pA?m.home:m.away, favp=Math.round(Math.max(m.pH,m.pA)*100);
+  const meta = m.played? badge : `Favorito <span class="tag">${fav} ${favp}%</span> · placar p=${Math.round(m.score_p*100)}%`;
+  return `<div class="match"><div class="mrow">
+    <span class="mteam a ${winA?'win':winB?'lose':''}">${m.home}</span>
+    <span class="mscore ${cls}">${scoreTxt}</span>
+    <span class="mteam b ${winB?'win':winA?'lose':''}">${m.away}</span></div>
+    <div class="mbar"><i class="bh" style="width:${m.pH*100}%"></i><i class="bd" style="width:${m.pD*100}%"></i><i class="ba" style="width:${m.pA*100}%"></i></div>
+    <div class="mmeta"><span class="mfav">${meta}</span></div></div>`;
+}
+function koHTML(t){
+  const winA=t.winner===t.A, draw=t.score[0]===t.score[1];
+  return `<div class="match"><div class="mrow">
+    <span class="mteam a ${winA?'win':'lose'}">${t.A}</span>
+    <span class="mscore">${t.score[0]} – ${t.score[1]}</span>
+    <span class="mteam b ${winA?'lose':'win'}">${t.B}</span></div>
+    <div class="mmeta"><span class="mfav">${t.label?'<span class="tag" style="color:var(--gold)">'+t.label+'</span> · ':''}Avança <span class="tag">${t.winner}</span> ${Math.round(t.pW*100)}%${draw?' <span class="pen">(pênaltis)</span>':''}</span></div></div>`;
+}
+function renderCal(){
+  const box=$('#v-cal'); let html='';
+  const RI={1:'11–17 jun',2:'18–23 jun',3:'24–27 jun'};
+  for(const r of [1,2,3]){
+    const ms=D.matches.filter(m=>m.round===r); let body='',last=null;
+    ms.forEach(m=>{ if(m.date!==last){body+=`<div class="daylbl">${m.date}</div>`;last=m.date;} body+=matchHTML(m); });
+    html+=`<div class="round ${open[r]?'open':''}" data-r="${r}"><div class="rhead"><span class="rn">${r}ª rodada · grupos</span><span class="rd">${RI[r]}</span><span class="arr">▶</span></div><div class="rbody">${body}</div></div>`;
+  }
+  const dates={'Round of 32':'28 jun–3 jul','Oitavas de final':'4–7 jul','Quartas de final':'9–11 jul','Semifinais':'14–15 jul','Final & 3º lugar':'18–19 jul'};
+  (D.knockout||[]).forEach(rd=>{
+    let body=rd.ties.map(koHTML).join('');
+    const champ = rd.name.startsWith('Final')&&D.champion_proj? `<div class="daylbl" style="color:var(--gold)">★ Campeão projetado: ${D.champion_proj}</div>`:'';
+    html+=`<div class="round ${open[rd.name]?'open':''}" data-r="${rd.name}"><div class="rhead"><span class="rn">${rd.name}</span><span class="rd">${dates[rd.name]||''}</span><span class="arr">▶</span></div><div class="rbody">${champ}${body}<p class="note" style="margin-top:10px">Rota projetada (caminho mais provável). As probabilidades reais estão na aba Título.</p></div></div>`;
+  });
+  box.innerHTML=html;
+  $$('.rhead').forEach(h=>h.onclick=()=>{const r=h.parentElement.dataset.r;open[r]=!open[r];h.parentElement.classList.toggle('open');});
+}
+function renderGroups(){
+  let h=''; for(const L of Object.keys(D.groups)){
+    const rows=D.groups[L].map((row,i)=>{const c=i<2?'qual':i===2?'qual3':'';return `<tr><td class="l ${c}">${i+1}. ${row.team}</td><td>${row.pts.toFixed(1)}</td><td><span class="el">${row.elo}</span></td></tr>`;}).join('');
+    h+=`<div class="grp"><h3>Grupo ${L}</h3><table><tr><th class="l">Seleção</th><th>Pts proj.</th><th>Elo</th></tr>${rows}</table></div>`;
+  } $('#groupsBox').innerHTML=h;
+}
+function renderTitle(){
+  const mx=D.champions[0]?D.champions[0].ensemble:1, cb=$('#champBox'); cb.innerHTML='';
+  D.champions.forEach((c,i)=>{ const mk=c.market!=null?` · mkt ${(c.market*100).toFixed(1)}%`:'';
+    cb.insertAdjacentHTML('beforeend',`<div class="crow"><span class="rk">${i+1}</span>
+      <span class="nm">${c.team}<br><span class="ci">modelo ${(c.model*100).toFixed(1)}% [${(c.lo*100).toFixed(1)}–${(c.hi*100).toFixed(1)}]${mk}</span></span>
+      <span class="barmini"><i style="width:${c.ensemble/mx*100}%"></i></span>
+      <span class="pct">${(c.ensemble*100).toFixed(1)}%</span></div>`); });
+  const ab=$('#advBox'); ab.innerHTML='';
+  D.advance.forEach((a,i)=>ab.insertAdjacentHTML('beforeend',`<div class="crow"><span class="rk">${i+1}</span><span class="nm">${a.team}</span><span class="barmini"><i style="width:${a.p*100}%"></i></span><span class="pct" style="color:var(--teal)">${Math.round(a.p*100)}%</span></div>`));
+}
+function renderPrec(){
+  $('#mN').textContent=D.calibration.n; $('#mLL').textContent=D.calibration.logloss; $('#mBr').textContent=D.calibration.brier;
+  $('#mFit').textContent=D.params.fitted?'recalibrados':'congelados (padrão)';
+  const keys=Object.keys(D.adjustments||{}); const box=$('#adjBox');
+  if(keys.length) box.innerHTML=keys.map(k=>`<span class="chip">${k} <b>att ${D.adjustments[k].att>=0?'+':''}${D.adjustments[k].att}</b></span>`).join('');
+  else box.innerHTML='<p class="note">Nenhum ajuste ativo.</p>';
+}
+function render(){
+  $('#stamp').textContent=fmtStamp(D.generated_at);
+  renderCal(); renderGroups(); renderTitle(); renderPrec();
+}
+function show(v){ ['cal','grupos','tit','prec'].forEach(x=>$('#v-'+x).classList.toggle('hide',x!==v));
+  $$('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.view===v)); window.scrollTo(0,0); }
+$$('.tabs button').forEach(b=>b.onclick=()=>show(b.dataset.view));
+$('#refreshBtn').onclick=loadData;
+loadData();
+</script>
+</body>
+</html>
