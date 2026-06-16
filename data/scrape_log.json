@@ -1,0 +1,20 @@
+{
+ "fonte": "wikipedia",
+ "grupos_ok": [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L"
+ ],
+ "grupos_falha": [],
+ "novos": [],
+ "nao_mapeados": []
+}
