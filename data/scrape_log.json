@@ -1,6 +1,8 @@
 {
- "fonte": "wikipedia",
- "grupos_ok": [
+ "fonte_primaria": "thesportsdb",
+ "tsdb_eventos": 5,
+ "tsdb_finalizados": 5,
+ "wiki_grupos_ok": [
   "A",
   "B",
   "C",
@@ -14,7 +16,7 @@
   "K",
   "L"
  ],
- "grupos_falha": [],
  "novos": [],
- "nao_mapeados": []
+ "nao_mapeados": [],
+ "erro": null
 }
