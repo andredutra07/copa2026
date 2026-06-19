@@ -1,146 +1,30 @@
 [
- [
-  "México",
-  "África do Sul",
-  2,
-  0
- ],
- [
-  "Coreia do Sul",
-  "Tchéquia",
-  2,
-  1
- ],
- [
-  "Canadá",
-  "Bósnia",
-  1,
-  1
- ],
- [
-  "Estados Unidos",
-  "Paraguai",
-  4,
-  1
- ],
- [
-  "Catar",
-  "Suíça",
-  1,
-  1
- ],
- [
-  "Brasil",
-  "Marrocos",
-  1,
-  1
- ],
- [
-  "Haiti",
-  "Escócia",
-  0,
-  1
- ],
- [
-  "Austrália",
-  "Turquia",
-  2,
-  0
- ],
- [
-  "Alemanha",
-  "Curaçao",
-  7,
-  1
- ],
- [
-  "Holanda",
-  "Japão",
-  2,
-  2
- ],
- [
-  "Costa do Marfim",
-  "Equador",
-  1,
-  0
- ],
- [
-  "Suécia",
-  "Tunísia",
-  5,
-  1
- ],
- [
-  "Espanha",
-  "Cabo Verde",
-  0,
-  0
- ],
- [
-  "Bélgica",
-  "Egito",
-  1,
-  1
- ],
- [
-  "Arábia Saudita",
-  "Uruguai",
-  1,
-  1
- ],
- [
-  "Irã",
-  "Nova Zelândia",
-  2,
-  2
- ],
- [
-  "França",
-  "Senegal",
-  3,
-  1
- ],
- [
-  "Iraque",
-  "Noruega",
-  1,
-  4
- ],
- [
-  "Argentina",
-  "Argélia",
-  3,
-  0
- ],
- [
-  "Áustria",
-  "Jordânia",
-  3,
-  1
- ],
- [
-  "Portugal",
-  "RD Congo",
-  1,
-  1
- ],
- [
-  "Inglaterra",
-  "Croácia",
-  4,
-  2
- ],
- [
-  "Gana",
-  "Panamá",
-  1,
-  0
- ],
- [
-  "Uzbequistão",
-  "Colômbia",
-  1,
-  3
- ]
+ ["México","África do Sul",2,0],
+ ["Coreia do Sul","Tchéquia",2,1],
+ ["Canadá","Bósnia",1,1],
+ ["Estados Unidos","Paraguai",4,1],
+ ["Catar","Suíça",1,1],
+ ["Brasil","Marrocos",1,1],
+ ["Haiti","Escócia",0,1],
+ ["Austrália","Turquia",2,0],
+ ["Alemanha","Curaçao",7,1],
+ ["Holanda","Japão",2,2],
+ ["Costa do Marfim","Equador",1,0],
+ ["Suécia","Tunísia",5,1],
+ ["Espanha","Cabo Verde",0,0],
+ ["Bélgica","Egito",1,1],
+ ["Arábia Saudita","Uruguai",1,1],
+ ["Irã","Nova Zelândia",2,2],
+ ["França","Senegal",3,1],
+ ["Iraque","Noruega",1,4],
+ ["Argentina","Argélia",3,0],
+ ["Áustria","Jordânia",3,1],
+ ["Portugal","RD Congo",1,1],
+ ["Inglaterra","Croácia",4,2],
+ ["Gana","Panamá",1,0],
+ ["Uzbequistão","Colômbia",1,3],
+ ["Tchéquia","África do Sul",1,1],
+ ["Suíça","Bósnia",4,1],
+ ["Canadá","Catar",6,0],
+ ["México","Coreia do Sul",1,0]
 ]
