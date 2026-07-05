@@ -5,261 +5,145 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Previsor Copa 2026</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>Previsor Copa 2026 · Mata-mata</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <style>
-  :root{--pitch:#08130d;--line:#1c3326;--chalk:#f2f0e6;--muted:#7e9586;--muted2:#536a5c;
-    --gold:#e8c15a;--teal:#2fd4b5;--red:#e8615a;--violet:#b58cf0;--card:#10241a;--card2:#0b1b13;}
+  :root{--pitch:#08130d;--line:#1c3326;--chalk:#f2f0e6;--muted:#7e9586;--muted2:#536a5c;--gold:#e8c15a;--teal:#2fd4b5;--red:#e8615a;--violet:#b58cf0;--card:#10241a;--card2:#0b1b13;}
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  html,body{margin:0;background:var(--pitch);color:var(--chalk);font-family:'Inter',system-ui,sans-serif;-webkit-text-size-adjust:100%;}
-  body{padding-bottom:env(safe-area-inset-bottom);}
-  .wrap{max-width:600px;margin:0 auto;padding:0 14px 96px;}
+  html,body{margin:0;background:var(--pitch);color:var(--chalk);font-family:'Inter',system-ui,sans-serif;}
+  .wrap{max-width:600px;margin:0 auto;padding:0 14px 60px;}
   header{padding:20px 2px 8px;}
   .eyebrow{font:600 12px/1 'Inter';letter-spacing:.22em;color:var(--teal);text-transform:uppercase;}
-  h1{font:700 31px/0.95 'Barlow Condensed';margin:6px 0 4px;text-transform:uppercase;}
-  h1 b{color:var(--gold);}
+  h1{font:700 30px/0.95 'Barlow Condensed';margin:6px 0 4px;text-transform:uppercase;} h1 b{color:var(--gold);}
   .sub{color:var(--muted);font-size:13px;line-height:1.5;}
-  .pill{display:inline-block;font:600 11px/1 'Inter';color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:5px 10px;margin-top:10px;}
-  .tabs{position:fixed;bottom:0;left:0;right:0;background:rgba(8,19,13,.93);backdrop-filter:blur(12px);border-top:1px solid var(--line);z-index:30;display:flex;padding:8px 6px calc(8px + env(safe-area-inset-bottom));}
-  .tabs button{flex:1;background:none;border:none;color:var(--muted2);font:600 11px/1.4 'Inter';padding:6px 2px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;}
-  .tabs button .ic{font-size:18px;} .tabs button.on{color:var(--gold);}
-  .round{margin:12px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card2);}
-  .rhead{display:flex;align-items:center;gap:10px;padding:15px;cursor:pointer;background:var(--card);}
-  .rhead .rn{font:700 18px/1 'Barlow Condensed';text-transform:uppercase;flex:1;}
-  .rhead .rd{font:600 11px/1 'Inter';color:var(--gold);}
-  .rhead .arr{color:var(--muted2);font-size:13px;transition:transform .2s;}
-  .round.open .rhead .arr{transform:rotate(90deg);}
-  .rbody{display:none;padding:4px 12px 12px;} .round.open .rbody{display:block;}
-  .daylbl{font:700 11px/1 'Inter';letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);margin:14px 4px 4px;}
-  .match{border-top:1px solid var(--line);padding:11px 4px;} .match:first-of-type{border-top:none;}
-  .match.editable{cursor:pointer;}
-  .mrow{display:flex;align-items:center;gap:8px;}
-  .mteam{flex:1;min-width:0;font:500 14px 'Inter';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .mteam.b{text-align:right;} .mteam.win{font-weight:600;color:var(--chalk);} .mteam.lose{color:var(--muted);}
-  .mscore{flex:0 0 auto;font:700 19px/1 'Space Grotesk';color:var(--gold);min-width:54px;text-align:center;}
-  .mscore.real{color:var(--teal);} .mscore.palpite{color:var(--violet);}
-  .mbar{height:5px;border-radius:3px;background:var(--card);overflow:hidden;display:flex;margin:8px 2px 0;}
-  .mbar i{height:100%;} .bh{background:var(--teal);} .bd{background:var(--muted2);} .ba{background:var(--gold);}
-  .mmeta{display:flex;justify-content:space-between;align-items:center;margin-top:6px;}
-  .mfav{font:500 11px 'Inter';color:var(--muted);} .mfav .tag{color:var(--teal);font-weight:600;}
-  .edit-hint{font:500 10px 'Inter';color:var(--muted2);}
-  .badge{font:600 9px 'Inter';letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;border-radius:5px;}
-  .badge.real{background:rgba(47,212,181,.14);color:var(--teal);}
-  .badge.palpite{background:rgba(181,140,240,.16);color:var(--violet);}
-  .palpnote{font:500 10.5px/1.4 'Inter';color:var(--violet);margin-top:5px;}
-  .pen{font:500 10px 'Inter';color:var(--muted);}
   .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0;}
   .card h2{font:600 13px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 14px;}
-  .note{font-size:12.5px;line-height:1.6;color:var(--muted);}
-  .grp h3{font:700 16px 'Barlow Condensed';letter-spacing:.08em;color:var(--gold);margin:18px 0 6px;text-transform:uppercase;}
-  table{width:100%;border-collapse:collapse;}
-  th{font:600 9px 'Inter';letter-spacing:.06em;text-transform:uppercase;color:var(--muted2);text-align:right;padding:4px 4px;}
-  th.l,td.l{text-align:left;}
-  td{font:500 13px 'Inter';padding:7px 4px;border-top:1px solid var(--line);text-align:right;}
-  td .el{font:500 12px 'Space Grotesk';color:var(--muted);}
-  .qual{color:var(--teal);font-weight:600;} .qual3{color:var(--gold);}
+  .rnd{font:700 15px 'Barlow Condensed';letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin:16px 0 6px;}
+  .g{border-top:1px solid var(--line);padding:10px 4px;cursor:pointer;} .g:first-of-type{border-top:none;}
+  .grow{display:flex;align-items:center;gap:8px;}
+  .tm{flex:1;min-width:0;font:500 14px 'Inter';white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .tm.b{text-align:right;} .tm.win{font-weight:700;color:var(--chalk);} .tm.out{color:var(--muted2);text-decoration:line-through;}
+  .pc{flex:0 0 auto;font:700 13px 'Space Grotesk';color:var(--muted);min-width:38px;text-align:center;}
+  .pc.hi{color:var(--teal);}
+  .vs{flex:0 0 auto;font:600 11px 'Inter';color:var(--muted2);}
+  .done{font:600 9px 'Inter';letter-spacing:.06em;text-transform:uppercase;color:var(--teal);background:rgba(47,212,181,.14);padding:2px 6px;border-radius:5px;}
+  .meta{font:500 10.5px 'Inter';color:var(--muted2);margin-top:4px;}
   .crow{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--line);} .crow:first-child{border:none;}
   .crow .rk{font:700 14px 'Space Grotesk';color:var(--muted2);width:22px;}
   .crow .nm{flex:1;font:500 14px 'Inter';}
-  .crow .ci{font:500 10px 'Space Grotesk';color:var(--muted2);}
-  .crow .pct{font:700 15px 'Space Grotesk';color:var(--gold);width:54px;text-align:right;}
-  .barmini{flex:0 0 60px;height:7px;border-radius:4px;background:var(--card2);overflow:hidden;} .barmini i{display:block;height:100%;background:var(--teal);}
-  .stat{display:flex;justify-content:space-between;padding:11px 0;border-top:1px solid var(--line);font-size:14px;} .stat:first-of-type{border:none;} .stat b{font:700 15px 'Space Grotesk';color:var(--teal);}
-  .chip{display:inline-flex;gap:6px;font:600 12px 'Inter';background:var(--card2);border:1px solid var(--line);border-radius:20px;padding:6px 11px;margin:4px 4px 0 0;}
-  .chip b{color:var(--teal);font-family:'Space Grotesk';}
-  .hide{display:none!important;}
-  .foot{color:var(--muted2);font-size:11px;line-height:1.6;text-align:center;margin-top:8px;}
-  .refresh{background:none;border:1px solid var(--line);color:var(--muted);border-radius:9px;padding:7px 12px;font:600 12px 'Inter';cursor:pointer;}
+  .barmini{flex:0 0 70px;height:7px;border-radius:4px;background:var(--card2);overflow:hidden;} .barmini i{display:block;height:100%;background:var(--gold);}
+  .crow .pct{font:700 15px 'Space Grotesk';color:var(--gold);width:52px;text-align:right;}
+  .champ{text-align:center;padding:16px;border:1px dashed var(--gold);border-radius:14px;margin-top:8px;}
+  .champ .lbl{font:600 10px 'Inter';letter-spacing:.16em;text-transform:uppercase;color:var(--muted);}
+  .champ .who{font:700 26px 'Barlow Condensed';color:var(--gold);text-transform:uppercase;margin-top:2px;}
+  .note{font-size:12px;line-height:1.6;color:var(--muted);}
+  .btnrow{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;}
+  .rbtn{background:none;border:1px solid var(--line);color:var(--muted);border-radius:9px;padding:8px 12px;font:600 12px 'Inter';cursor:pointer;}
   .sheet{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:none;align-items:flex-end;}
   .sheet.on{display:flex;}
   .sheet .panel{background:var(--card);border-top:1px solid var(--line);border-radius:18px 18px 0 0;width:100%;max-width:600px;margin:0 auto;padding:18px 16px calc(20px + env(safe-area-inset-bottom));}
-  .sheet h3{font:700 19px 'Barlow Condensed';text-transform:uppercase;margin:0 0 4px;}
-  .sheet .si{display:flex;gap:12px;align-items:flex-start;justify-content:center;margin:16px 0;}
-  .sheet .si input{width:68px;height:56px;text-align:center;font:700 26px 'Space Grotesk';background:var(--card2);border:1px solid var(--line);border-radius:12px;color:var(--chalk);}
-  .sheet .si .xx{align-self:center;color:var(--muted);font:600 16px 'Inter';}
-  .sheet .si .edit-hint{display:block;text-align:center;margin-top:4px;max-width:68px;}
-  .sheet .btns{display:flex;flex-direction:column;gap:8px;}
-  .sheet .btns button{border:none;border-radius:12px;padding:13px;font:600 14px 'Inter';cursor:pointer;}
-  .b-real{background:var(--teal);color:#06241c;}
-  .b-palp{background:var(--violet);color:#1a0f2e;}
-  .b-prev{background:var(--card2);color:var(--chalk);border:1px solid var(--line)!important;}
-  .b-close{background:none;color:var(--muted);}
-  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+  .sheet h3{font:700 19px 'Barlow Condensed';text-transform:uppercase;margin:0 0 10px;}
+  .sheet button{width:100%;border:none;border-radius:12px;padding:14px;font:600 15px 'Inter';cursor:pointer;margin-bottom:8px;}
+  .b1{background:var(--teal);color:#06241c;} .b2{background:var(--gold);color:#2a2205;} .b3{background:var(--card2);color:var(--chalk);border:1px solid var(--line)!important;} .b4{background:none;color:var(--muted);}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div class="eyebrow">Dixon-Coles + Mercado · Monte Carlo</div>
-    <h1>Previsor <b>Copa 2026</b></h1>
-    <div class="sub">Atualizado automaticamente a cada rodada. Toque em qualquer jogo para marcar o resultado real ou seu palpite.</div>
-    <div style="display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap">
-      <span class="pill" id="stamp">carregando…</span>
-      <button class="refresh" id="refreshBtn">↻ atualizar</button>
-    </div>
+    <div class="eyebrow">Mata-mata · Monte Carlo · Elo+elenco</div>
+    <h1>Copa 2026 <b>· Oitavas → Final</b></h1>
+    <div class="sub">Chaveamento real das oitavas. O app simula os jogos que faltam. Toque num jogo para marcar o vencedor conforme acontece.</div>
+    <div class="btnrow"><button class="rbtn" id="resetBtn">↺ limpar meus resultados</button></div>
   </header>
-  <section id="v-cal"></section>
-  <section id="v-grupos" class="hide"><div class="card"><h2>Classificação projetada</h2><div id="groupsBox"></div>
-    <p class="note" style="margin-top:14px"><span class="qual">Verde</span>=1º/2º · <span class="qual3">Dourado</span>=3º (8 melhores avançam). Pontos esperados pelo modelo.</p></div></section>
-  <section id="v-tit" class="hide">
-    <div class="card"><h2>Probabilidade de título</h2><div id="champBox"></div>
-      <p class="note" style="margin-top:12px">Modelo (Monte Carlo, IC 95%) fundido com o mercado = ensemble (barra).</p></div>
-    <div class="card"><h2>Chance de chegar às oitavas</h2><div id="advBox"></div></div>
-  </section>
-  <section id="v-prec" class="hide">
-    <div class="card"><h2>Precisão (fora da amostra)</h2>
-      <div class="stat"><span>Jogos avaliados</span><b id="mN">—</b></div>
-      <div class="stat"><span>log-loss (walk-forward)</span><b id="mLL">—</b></div>
-      <div class="stat"><span>Brier</span><b id="mBr">—</b></div>
-      <div class="stat"><span>Parâmetros</span><b id="mFit">—</b></div>
-      <p class="note" style="margin-top:12px">Congelados no padrão até 24 jogos (anti-overfit); depois recalibram via MLE com shrinkage.</p></div>
-    <div class="card"><h2>Ajustes ativos (lesão/forma)</h2><div id="adjBox"><p class="note">Nenhum ajuste ativo.</p></div>
-      <p class="note" style="margin-top:12px">Ajustes manuais entram no arquivo <b>data/adjustments.json</b> do repositório (veja o README). A automação os preserva.</p></div>
-  </section>
+  <div class="card"><h2>Probabilidade de título</h2><div id="odds"></div>
+    <p class="note" style="margin-top:12px">Monte Carlo (60 mil simulações) a partir do chaveamento atual. Times eliminados saem da conta.</p></div>
+  <div class="card"><h2>Chaveamento</h2><div id="bracket"></div></div>
+  <div class="card"><div class="champ"><div class="lbl">Campeão mais provável</div><div class="who" id="champ">—</div></div>
+    <p class="note" style="margin-top:12px">Caminho projetado = favorito de cada confronto. As chances reais estão na tabela de título acima. É probabilidade, não cravada.</p></div>
 </div>
-<nav class="tabs">
-  <button data-view="cal" class="on"><span class="ic">📅</span>Calendário</button>
-  <button data-view="grupos"><span class="ic">▦</span>Grupos</button>
-  <button data-view="tit"><span class="ic">🏆</span>Título</button>
-  <button data-view="prec"><span class="ic">◷</span>Precisão</button>
-</nav>
 
-<div class="sheet" id="sheet">
-  <div class="panel">
-    <h3 id="shTitle">—</h3>
-    <div class="note">Defina o placar e escolha como marcar este jogo.</div>
-    <div class="si">
-      <div><input id="shH" type="number" min="0" inputmode="numeric"><span class="edit-hint" id="shHlab"></span></div>
-      <span class="xx">×</span>
-      <div><input id="shA" type="number" min="0" inputmode="numeric"><span class="edit-hint" id="shAlab"></span></div>
-    </div>
-    <div class="btns">
-      <button class="b-real" onclick="saveOV('real')">✓ Resultado real (aconteceu)</button>
-      <button class="b-palp" onclick="saveOV('palpite')">★ Meu palpite (chute pessoal)</button>
-      <button class="b-prev" onclick="saveOV('prev')">↺ Usar previsão estatística</button>
-      <button class="b-close" onclick="closeEditor()">Fechar</button>
-    </div>
-    <p class="note" style="margin-top:12px">Palpite e edição ficam só neste aparelho e mudam apenas a exibição (não recalculam título/grupos). Para o cálculo considerar um resultado real, ele também precisa ir ao <b>results.json</b> do repositório.</p>
-  </div>
-</div>
+<div class="sheet" id="sheet"><div class="panel">
+  <h3 id="shT">—</h3>
+  <button class="b1" id="shA" onclick="setW('A')">—</button>
+  <button class="b2" id="shB" onclick="setW('B')">—</button>
+  <button class="b3" onclick="setW(null)">↺ Voltar para previsão</button>
+  <button class="b4" onclick="closeSheet()">Fechar</button>
+</div></div>
 
 <script>
-const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
-const FALLBACK=null;
-let D=null, open={2:true};
-function loadOV(){ try{return JSON.parse(localStorage.getItem('wc26ov:v1')||'{}');}catch(e){return {};} }
-function persistOV(){ try{localStorage.setItem('wc26ov:v1',JSON.stringify(OV));}catch(e){} }
-let OV=loadOV();
-
-async function loadData(){
-  try{
-    const r=await fetch('predictions.json?t='+Date.now(),{cache:'no-store'});
-    if(!r.ok) throw 0; D=await r.json();
-  }catch(e){ D=FALLBACK; }
-  if(!D){ $('#stamp').textContent='sem dados — publique via GitHub Pages'; return; }
-  render();
+const $=s=>document.querySelector(s);
+const ELO={Morocco:1860,France:2063,Brazil:1991,Norway:1922,Mexico:1868,England:2024,Spain:2157,Portugal:1989,Belgium:1893,USA:1798,Egypt:1696,Argentina:2115,Switzerland:1891,Colombia:1982,Canada:1731,Paraguay:1722};
+const SQ={Morocco:448,France:1520,Brazil:928,Norway:590,Mexico:180,England:1360,Spain:1220,Portugal:1010,Belgium:547,USA:386,Egypt:180,Argentina:807,Switzerland:332,Colombia:302,Canada:150,Paraguay:95};
+const PT={Morocco:'Marrocos',France:'França',Brazil:'Brasil',Norway:'Noruega',Mexico:'México',England:'Inglaterra',Spain:'Espanha',Portugal:'Portugal',Belgium:'Bélgica',USA:'EUA',Egypt:'Egito',Argentina:'Argentina',Switzerland:'Suíça',Colombia:'Colômbia',Canada:'Canadá',Paraguay:'Paraguai'};
+const names=Object.keys(ELO); const lv=names.map(t=>Math.log10(SQ[t])); const lmean=lv.reduce((a,b)=>a+b)/lv.length; const lsd=Math.sqrt(lv.reduce((a,b)=>a+(b-lmean)**2,0)/lv.length);
+const R={}; names.forEach(t=>R[t]=ELO[t]+22*((Math.log10(SQ[t])-lmean)/lsd));
+const R16=[
+ {id:'r0',a:'Morocco',b:'Canada',winner:'Morocco'},
+ {id:'r1',a:'France',b:'Paraguay',winner:'France'},
+ {id:'r2',a:'Brazil',b:'Norway',winner:null},
+ {id:'r3',a:'Mexico',b:'England',homeA:true,winner:null},
+ {id:'r4',a:'Spain',b:'Portugal',winner:null},
+ {id:'r5',a:'Belgium',b:'USA',homeB:true,winner:null},
+ {id:'r6',a:'Egypt',b:'Argentina',winner:null},
+ {id:'r7',a:'Switzerland',b:'Colombia',winner:null},
+];
+const OVK='wc26ko:v1';
+let OV={}; try{OV=JSON.parse(localStorage.getItem(OVK)||'{}');}catch(e){OV={}}
+function persist(){try{localStorage.setItem(OVK,JSON.stringify(OV));}catch(e){}}
+function winnerOf(g){ return OV[g.id]!==undefined?OV[g.id]:g.winner; }
+function pA(a,b,hA,hB){const ea=R[a]+(hA?60:0),eb=R[b]+(hB?60:0);return 1/(1+Math.pow(10,-(ea-eb)/400));}
+function playSim(a,b,hA,hB){return Math.random()<pA(a,b,hA,hB)?a:b;}
+function simOnce(){
+  const w=R16.map(g=>{const fx=winnerOf(g);return fx?fx:playSim(g.a,g.b,g.homeA,g.homeB);});
+  const qf=[playSim(w[0],w[1]),playSim(w[5],w[4]),playSim(w[2],w[3]),playSim(w[6],w[7])];
+  const sf=[playSim(qf[0],qf[1]),playSim(qf[2],qf[3])];
+  return playSim(sf[0],sf[1]);
 }
-function fmtStamp(iso){ try{const d=new Date(iso);return 'atualizado '+d.toLocaleString('pt-BR');}catch(e){return iso;} }
-function midOf(m){ return m.round+':'+m.home+':'+m.away; }
-
-function matchHTML(m){
-  const mid=midOf(m), ov=OV[mid];
-  let h,a,state;
-  if(ov){ h=ov.h; a=ov.a; state=ov.type; }
-  else if(m.played){ h=m.real[0]; a=m.real[1]; state='real'; }
-  else { h=m.score[0]; a=m.score[1]; state='prev'; }
-  const winA=h>a, winB=a>h;
-  const cls = state==='real'?'real':state==='palpite'?'palpite':'';
-  let meta;
-  if(state==='real') meta='<span class="badge real">real</span>';
-  else if(state==='palpite') meta='<span class="badge palpite">palpite</span>';
-  else { const fav=m.pH>=m.pA?m.home:m.away, favp=Math.round(Math.max(m.pH,m.pA)*100); meta=`Favorito <span class="tag">${fav} ${favp}%</span> · placar p=${Math.round(m.score_p*100)}%`; }
-  const palp = state==='palpite' ? `<div class="palpnote">★ Seu palpite pessoal — não é o favorito do modelo, é o seu chute.</div>` : '';
-  return `<div class="match editable" data-mid="${mid}"><div class="mrow">
-    <span class="mteam a ${winA?'win':winB?'lose':''}">${m.home}</span>
-    <span class="mscore ${cls}">${h} – ${a}</span>
-    <span class="mteam b ${winB?'win':winA?'lose':''}">${m.away}</span></div>
-    <div class="mbar"><i class="bh" style="width:${m.pH*100}%"></i><i class="bd" style="width:${m.pD*100}%"></i><i class="ba" style="width:${m.pA*100}%"></i></div>
-    <div class="mmeta"><span class="mfav">${meta}</span><span class="edit-hint">toque ✎</span></div>${palp}</div>`;
+function montecarlo(N){const c={};for(let i=0;i<N;i++){const x=simOnce();c[x]=(c[x]||0)+1;}const o=Object.entries(c).map(([t,n])=>[t,n/N]).sort((a,b)=>b[1]-a[1]);return o;}
+function greedy(a,b,hA,hB){return pA(a,b,hA,hB)>=0.5?a:b;}
+function projPath(){
+  const w=R16.map(g=>{const fx=winnerOf(g);return fx?fx:greedy(g.a,g.b,g.homeA,g.homeB);});
+  const qf=[greedy(w[0],w[1]),greedy(w[5],w[4]),greedy(w[2],w[3]),greedy(w[6],w[7])];
+  const sf=[greedy(qf[0],qf[1]),greedy(qf[2],qf[3])];
+  const fin=greedy(sf[0],sf[1]);
+  return {w,qf,sf,fin};
 }
-function koHTML(t){
-  const winA=t.winner===t.A, draw=t.score[0]===t.score[1];
-  return `<div class="match"><div class="mrow">
-    <span class="mteam a ${winA?'win':'lose'}">${t.A}</span>
-    <span class="mscore">${t.score[0]} – ${t.score[1]}</span>
-    <span class="mteam b ${winA?'lose':'win'}">${t.B}</span></div>
-    <div class="mmeta"><span class="mfav">${t.label?'<span class="tag" style="color:var(--gold)">'+t.label+'</span> · ':''}Avança <span class="tag">${t.winner}</span> ${Math.round(t.pW*100)}%${draw?' <span class="pen">(pênaltis)</span>':''}</span></div></div>`;
+let curG=null;
+function openSheet(id){const g=R16.find(x=>x.id===id);if(!g)return;curG=g;$('#shT').textContent=PT[g.a]+'  ×  '+PT[g.b];$('#shA').textContent='✓ '+PT[g.a]+' venceu';$('#shB').textContent='✓ '+PT[g.b]+' venceu';$('#sheet').classList.add('on');}
+function closeSheet(){$('#sheet').classList.remove('on');curG=null;}
+function setW(side){if(curG){if(side===null)delete OV[curG.id];else OV[curG.id]=side==='A'?curG.a:curG.b;persist();}closeSheet();render();}
+$('#sheet').onclick=e=>{if(e.target===$('#sheet'))closeSheet();};
+$('#resetBtn').onclick=()=>{OV={};persist();render();};
+function gameRow(g){
+  const w=winnerOf(g), decided=!!w;
+  const pa=pA(g.a,g.b,g.homeA,g.homeB), pb=1-pa;
+  const aWin=decided&&w===g.a, bWin=decided&&w===g.b;
+  const aOut=decided&&w!==g.a, bOut=decided&&w!==g.b;
+  const host=g.homeA?' · mando '+PT[g.a]:g.homeB?' · mando '+PT[g.b]:'';
+  const right=decided?'<span class="done">fim</span>':'';
+  const pcA=decided?'':`<span class="pc ${pa>=pb?'hi':''}">${Math.round(pa*100)}%</span>`;
+  const pcB=decided?'':`<span class="pc ${pb>pa?'hi':''}">${Math.round(pb*100)}%</span>`;
+  return `<div class="g" onclick="openSheet('${g.id}')"><div class="grow">
+    <span class="tm a ${aWin?'win':''} ${aOut?'out':''}">${PT[g.a]}</span>${pcA}
+    <span class="vs">x</span>${pcB}
+    <span class="tm b ${bWin?'win':''} ${bOut?'out':''}">${PT[g.b]}</span></div>
+    <div class="meta">${decided?'Resultado marcado':'Toque para marcar o vencedor'}${host} ${right}</div></div>`;
 }
-function renderCal(){
-  const box=$('#v-cal'); let html='';
-  const RI={1:'11–17 jun',2:'18–23 jun',3:'24–27 jun'};
-  for(const r of [1,2,3]){
-    const ms=D.matches.filter(m=>m.round===r); let body='',last=null;
-    ms.forEach(m=>{ if(m.date!==last){body+=`<div class="daylbl">${m.date}</div>`;last=m.date;} body+=matchHTML(m); });
-    html+=`<div class="round ${open[r]?'open':''}" data-r="${r}"><div class="rhead"><span class="rn">${r}ª rodada · grupos</span><span class="rd">${RI[r]}</span><span class="arr">▶</span></div><div class="rbody">${body}</div></div>`;
-  }
-  const dates={'Round of 32':'28 jun–3 jul','Oitavas de final':'4–7 jul','Quartas de final':'9–11 jul','Semifinais':'14–15 jul','Final & 3º lugar':'18–19 jul'};
-  (D.knockout||[]).forEach(rd=>{
-    let body=rd.ties.map(koHTML).join('');
-    const champ = rd.name.startsWith('Final')&&D.champion_proj? `<div class="daylbl" style="color:var(--gold)">★ Campeão projetado: ${D.champion_proj}</div>`:'';
-    html+=`<div class="round ${open[rd.name]?'open':''}" data-r="${rd.name}"><div class="rhead"><span class="rn">${rd.name}</span><span class="rd">${dates[rd.name]||''}</span><span class="arr">▶</span></div><div class="rbody">${champ}${body}<p class="note" style="margin-top:10px">Rota projetada (caminho mais provável). As probabilidades reais estão na aba Título.</p></div></div>`;
-  });
-  box.innerHTML=html;
-  $$('.rhead').forEach(h=>h.onclick=()=>{const r=h.parentElement.dataset.r;open[r]=!open[r];h.parentElement.classList.toggle('open');});
-  $$('#v-cal .match.editable').forEach(el=>el.onclick=(e)=>{e.stopPropagation();openEditor(el.dataset.mid);});
-}
-function renderGroups(){
-  let h=''; for(const L of Object.keys(D.groups)){
-    const rows=D.groups[L].map((row,i)=>{const c=i<2?'qual':i===2?'qual3':'';return `<tr><td class="l ${c}">${i+1}. ${row.team}</td><td>${row.pts.toFixed(1)}</td><td><span class="el">${row.elo}</span></td></tr>`;}).join('');
-    h+=`<div class="grp"><h3>Grupo ${L}</h3><table><tr><th class="l">Seleção</th><th>Pts proj.</th><th>Elo</th></tr>${rows}</table></div>`;
-  } $('#groupsBox').innerHTML=h;
-}
-function renderTitle(){
-  const mx=D.champions[0]?D.champions[0].ensemble:1, cb=$('#champBox'); cb.innerHTML='';
-  D.champions.forEach((c,i)=>{ const mk=c.market!=null?` · mkt ${(c.market*100).toFixed(1)}%`:'';
-    cb.insertAdjacentHTML('beforeend',`<div class="crow"><span class="rk">${i+1}</span>
-      <span class="nm">${c.team}<br><span class="ci">modelo ${(c.model*100).toFixed(1)}% [${(c.lo*100).toFixed(1)}–${(c.hi*100).toFixed(1)}]${mk}</span></span>
-      <span class="barmini"><i style="width:${c.ensemble/mx*100}%"></i></span>
-      <span class="pct">${(c.ensemble*100).toFixed(1)}%</span></div>`); });
-  const ab=$('#advBox'); ab.innerHTML='';
-  D.advance.forEach((a,i)=>ab.insertAdjacentHTML('beforeend',`<div class="crow"><span class="rk">${i+1}</span><span class="nm">${a.team}</span><span class="barmini"><i style="width:${a.p*100}%"></i></span><span class="pct" style="color:var(--teal)">${Math.round(a.p*100)}%</span></div>`));
-}
-function renderPrec(){
-  $('#mN').textContent=D.calibration.n; $('#mLL').textContent=D.calibration.logloss; $('#mBr').textContent=D.calibration.brier;
-  $('#mFit').textContent=D.params.fitted?'recalibrados':'congelados (padrão)';
-  const keys=Object.keys(D.adjustments||{}); const box=$('#adjBox');
-  if(keys.length) box.innerHTML=keys.map(k=>`<span class="chip">${k} <b>att ${D.adjustments[k].att>=0?'+':''}${D.adjustments[k].att}</b></span>`).join('');
-  else box.innerHTML='<p class="note">Nenhum ajuste ativo.</p>';
-}
+function slot(t){return t?PT[t]:'—';}
 function render(){
-  $('#stamp').textContent=fmtStamp(D.generated_at);
-  renderCal(); renderGroups(); renderTitle(); renderPrec();
+  const odds=montecarlo(60000);
+  const mx=odds[0][1]||1, ob=$('#odds'); ob.innerHTML='';
+  odds.forEach(([t,p],i)=>ob.insertAdjacentHTML('beforeend',`<div class="crow"><span class="rk">${i+1}</span><span class="nm">${PT[t]}</span><span class="barmini"><i style="width:${p/mx*100}%"></i></span><span class="pct">${(p*100).toFixed(1)}%</span></div>`));
+  const P=projPath(); let h='';
+  h+='<div class="rnd">Oitavas de final</div>'+R16.map(gameRow).join('');
+  const qpairs=[['A',P.w[0],P.w[1]],['B',P.w[5],P.w[4]],['C',P.w[2],P.w[3]],['D',P.w[6],P.w[7]]];
+  h+='<div class="rnd">Quartas (projeção)</div>'+qpairs.map(([k,a,b])=>`<div class="g" style="cursor:default"><div class="grow"><span class="tm a">${slot(a)}</span><span class="vs">x</span><span class="tm b">${slot(b)}</span></div><div class="meta">Favorito: ${slot(pA(a,b)>=0.5?a:b)}</div></div>`).join('');
+  h+='<div class="rnd">Semifinais (projeção)</div>'+[[P.qf[0],P.qf[1]],[P.qf[2],P.qf[3]]].map(([a,b])=>`<div class="g" style="cursor:default"><div class="grow"><span class="tm a">${slot(a)}</span><span class="vs">x</span><span class="tm b">${slot(b)}</span></div></div>`).join('');
+  h+='<div class="rnd">Final (projeção)</div>'+`<div class="g" style="cursor:default"><div class="grow"><span class="tm a">${slot(P.sf[0])}</span><span class="vs">x</span><span class="tm b">${slot(P.sf[1])}</span></div></div>`;
+  $('#bracket').innerHTML=h;
+  $('#champ').textContent=slot(P.fin);
 }
-function show(v){ ['cal','grupos','tit','prec'].forEach(x=>$('#v-'+x).classList.toggle('hide',x!==v));
-  $$('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.view===v)); window.scrollTo(0,0); }
-
-let curMid=null;
-function openEditor(mid){
-  const m=D.matches.find(x=>midOf(x)===mid); if(!m) return; curMid=mid;
-  const ov=OV[mid]; let h,a;
-  if(ov){h=ov.h;a=ov.a;} else if(m.played){h=m.real[0];a=m.real[1];} else {h=m.score[0];a=m.score[1];}
-  $('#shTitle').textContent=m.home+'  ×  '+m.away;
-  $('#shH').value=h; $('#shA').value=a; $('#shHlab').textContent=m.home; $('#shAlab').textContent=m.away;
-  $('#sheet').classList.add('on');
-}
-function closeEditor(){ $('#sheet').classList.remove('on'); curMid=null; }
-function saveOV(type){
-  if(!curMid){ closeEditor(); return; }
-  const h=Math.max(0,parseInt($('#shH').value||'0',10)||0), a=Math.max(0,parseInt($('#shA').value||'0',10)||0);
-  if(type==='prev') delete OV[curMid]; else OV[curMid]={type:type,h:h,a:a};
-  persistOV(); closeEditor(); renderCal();
-}
-$('#sheet').onclick=(e)=>{ if(e.target===$('#sheet')) closeEditor(); };
-$$('.tabs button').forEach(b=>b.onclick=()=>show(b.dataset.view));
-$('#refreshBtn').onclick=loadData;
-loadData();
+render();
 </script>
 </body>
 </html>
