@@ -1,7 +1,7 @@
 {
  "fonte_primaria": "thesportsdb",
- "tsdb_eventos": 5,
- "tsdb_finalizados": 5,
+ "tsdb_eventos": 0,
+ "tsdb_finalizados": 0,
  "wiki_grupos_ok": [
   "A",
   "B",
@@ -18,5 +18,5 @@
  ],
  "novos": [],
  "nao_mapeados": [],
- "erro": null
+ "erro": "tsdb_indisponivel"
 }
