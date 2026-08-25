@@ -3,18 +3,9 @@
  "tsdb_eventos": 5,
  "tsdb_finalizados": 5,
  "wiki_grupos_ok": [
-  "A",
-  "B",
-  "C",
-  "D",
   "E",
   "F",
-  "G",
-  "H",
-  "I",
-  "J",
-  "K",
-  "L"
+  "I"
  ],
  "novos": [],
  "nao_mapeados": [],
